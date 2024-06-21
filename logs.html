@@ -1,9 +1,9 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Logs em Tempo Real do Quiz - Sex Education</title>
+    <title>Logs do Quiz - Sex Education</title>
     <style>
         body {
             font-family: Arial, sans-serif;
@@ -24,28 +24,32 @@
     </style>
 </head>
 <body>
-    <h1>Logs em Tempo Real do Quiz - Sex Education</h1>
+    <h1>Logs do Quiz - Sex Education</h1>
     <div id="logContainer"></div>
 
     <script>
         const logContainer = document.getElementById('logContainer');
 
+        // Função para exibir os logs armazenados no localStorage
         function showLogs() {
             for (let i = 0; i < localStorage.length; i++) {
                 const storageKey = localStorage.key(i);
-                const answerObject = JSON.parse(localStorage.getItem(storageKey));
-                const questionIndex = parseInt(storageKey.split('_')[1]);
-                const question = quizData[questionIndex].question;
-                const correct = answerObject.correct;
+                if (storageKey.includes('question_')) {
+                    const answerObject = JSON.parse(localStorage.getItem(storageKey));
+                    const questionIndex = parseInt(storageKey.split('_')[1]);
+                    const question = quizData[questionIndex].question;
+                    const correct = answerObject.correct;
 
-                const logItem = document.createElement('div');
-                logItem.classList.add('log-item');
-                logItem.classList.add(correct ? 'correct' : 'incorrect');
-                logItem.textContent = `Pergunta: ${question}\nResposta: ${answerObject.text}\n${correct ? 'Correta' : 'Incorreta'}`;
-                logContainer.appendChild(logItem);
+                    const logItem = document.createElement('div');
+                    logItem.classList.add('log-item');
+                    logItem.classList.add(correct ? 'correct' : 'incorrect');
+                    logItem.textContent = `Pergunta: ${question}\nResposta: ${answerObject.text}\n${correct ? 'Correta' : 'Incorreta'}`;
+                    logContainer.appendChild(logItem);
+                }
             }
         }
 
+        // Chama a função para exibir os logs ao carregar a página
         showLogs();
     </script>
 </body>
