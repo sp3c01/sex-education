@@ -28,6 +28,29 @@
     <div id="logContainer"></div>
 
     <script>
+        // Definição do quizData - necessário ajustar se estiver em um arquivo separado
+        const quizData = [
+            {
+                question: "Quem é o protagonista da série?",
+                answers: [
+                    { text: "Eric Effiong", correct: false },
+                    { text: "Otis Milburn", correct: true },
+                    { text: "Maeve Wiley", correct: false },
+                    { text: "Jean Milburn", correct: false }
+                ]
+            },
+            {
+                question: "Qual é o nome da mãe de Otis?",
+                answers: [
+                    { text: "Jean", correct: true },
+                    { text: "Emma", correct: false },
+                    { text: "Maureen", correct: false },
+                    { text: "Emily", correct: false }
+                ]
+            },
+            // Adicione mais perguntas conforme necessário
+        ];
+
         const logContainer = document.getElementById('logContainer');
 
         // Função para exibir os logs armazenados no localStorage
