@@ -176,6 +176,11 @@ function selectAnswer(answer) {
     if (correct) {
         score++;
     }
+    // Armazena a resposta selecionada no localStorage
+    const storageKey = `question_${currentQuestionIndex}`;
+    const answerObject = { text: answer.text, correct: correct };
+    localStorage.setItem(storageKey, JSON.stringify(answerObject));
+
     Array.from(answersElement.children).forEach(button => {
         if (button.innerHTML == answer.text) {
             button.style.backgroundColor = correct ? 'lightgreen' : 'red';
