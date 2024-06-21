@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Logs em Tempo Real do Quiz - Sex Education</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 20px;
+        }
+        .log-item {
+            margin-bottom: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            background-color: #f0f0f0;
+        }
+        .correct {
+            background-color: #c8e6c9;
+        }
+        .incorrect {
+            background-color: #ffcdd2;
+        }
+    </style>
+</head>
+<body>
+    <h1>Logs em Tempo Real do Quiz - Sex Education</h1>
+    <div id="logContainer"></div>
+
+    <script>
+        const quizData = [
+            {
+                question: "Quem é o protagonista de Sex Education?",
+                answers: [
+                    { text: "Otis Milburn", correct: true },
+                    { text: "Maeve Wiley", correct: false },
+                    { text: "Jackson Marchetti", correct: false },
+                    { text: "Eric Effiong", correct: false }
+                ]
+            },
+            {
+                question: "Qual é o nome da escola onde se passa a série?",
+                answers: [
+                    { text: "Moordale", correct: true },
+                    { text: "Meadowvale", correct: false },
+                    { text: "Windermere", correct: false },
+                    { text: "Bradfield", correct: false }
+                ]
+            },
+            {
+                question: "Qual é o relacionamento entre Otis e Maeve no início da série?",
+                answers: [
+                    { text: "Inimigos", correct: false },
+                    { text: "Amigos de infância", correct: false },
+                    { text: "Colegas de classe", correct: false },
+                    { text: "Desconhecidos", correct: true }
+                ]
+            }
+            // Adicione mais perguntas conforme necessário
+        ];
+
+        const logContainer = document.getElementById('logContainer');
+
+        // Função para adicionar um novo log
+        function addLog(question, answer, correct) {
+            const logItem = document.createElement('div');
+            logItem.classList.add('log-item');
+            logItem.classList.add(correct ? 'correct' : 'incorrect');
+            logItem.textContent = `Pergunta: ${question}\nResposta: ${answer}\n${correct ? 'Correta' : 'Incorreta'}`;
+            logContainer.appendChild(logItem);
+        }
+
+        // Função para iniciar o monitoramento das respostas em tempo real
+        function monitorAnswers() {
+            quizData.forEach((questionData, index) => {
+                const storageKey = `question_${index}`;
+                const selectedAnswer = localStorage.getItem(storageKey);
+
+                if (selectedAnswer !== null) {
+                    const answerObject = JSON.parse(selectedAnswer);
+                    addLog(questionData.question, answerObject.text, answerObject.correct);
+                }
+            });
+
+            // Monitora as mudanças no armazenamento local a cada segundo
+            setTimeout(monitorAnswers, 1000);
+        }
+
+        // Inicia o monitoramento das respostas
+        monitorAnswers();
+    </script>
+</body>
+</html>
